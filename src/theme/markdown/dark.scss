@@ -1,0 +1,43 @@
+.markdown-body.dark {
+  @import "~highlight.js/scss/github-dark";
+
+  color: #FFFFFFD1;
+  background-color: #0E1117;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFFE6;
+  }
+
+  h1, h2, h3 {
+    border-bottom: 1px solid #21262D;
+  }
+
+  blockquote {
+    border-left-color: #31363D;
+    color: #8B949E;
+  }
+
+  table {
+    border: 1px solid #181B22;
+
+    thead {
+      background-color: #181B22;
+    }
+
+    td {
+      border-top: 1px solid #181B22;
+    }
+  }
+
+  code {
+    background-color: #343942;
+  }
+
+  pre {
+    background-color: #171B22;
+
+    &.math-block {
+      background-color: transparent;
+    }
+  }
+}

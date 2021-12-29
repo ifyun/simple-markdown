@@ -1,24 +1,15 @@
-# simple-markdown
+<h1 align="center">Simple Markdown</h1>
 
-## Project setup
-```
-npm install
-```
+<p align="center">Markdown desktop app based on Electron.</p>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Credits
 
-### Compiles and minifies for production
-```
-npm run build
-```
+This software uses following open source packages:
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [Electron](https://www.electronjs.org/)
+- [Vue.js](https://v3.cn.vuejs.org/)
+- [Node.js](https://nodejs.org/)
+- [CodeMirror](https://codemirror.net/)
+- [markdown-it](https://github.com/markdown-it/markdown-it)
+- [highlight.js](https://highlightjs.org/)
+- [Naive UI](https://www.naiveui.com/)
