@@ -1,9 +1,9 @@
 <template>
   <div class="editor">
-    <div class="source">
+    <div v-show="showSource" class="source">
       <markdown-editor v-model="content" @save="save"/>
     </div>
-    <div class="preview" :class="theme">
+    <div v-show="showPreview" class="preview" :class="theme">
       <markdown-view :content="content" style="flex: 1"/>
     </div>
   </div>
@@ -37,6 +37,14 @@ export default class Editor extends Vue {
 
   get theme () {
     return this.store.state.theme
+  }
+
+  get showSource (): boolean {
+    return ["source", "split"].includes(this.store.state.layout)
+  }
+
+  get showPreview (): boolean {
+    return ["split", "preview"].includes(this.store.state.layout)
   }
 
   @Watch("filePath")

@@ -5,8 +5,8 @@
 ## Features
 
 - 代码高亮
-- 数学公式
-- 暗色主题
+- 亮色/暗色主题
+- KaTeX
 - Jekyll Front Matter
 
 ## Credits
