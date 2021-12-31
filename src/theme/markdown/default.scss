@@ -11,11 +11,10 @@
   h1, h2, h3 {
     margin-top: 26px;
     margin-bottom: 16px;
-    border-bottom: 1px solid #D9DEE4;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 500;
+    font-weight: bold;
     padding-bottom: 5px;
   }
 
@@ -83,10 +82,15 @@
   blockquote {
     margin: 10px 0 0 0;
     padding: 6px 15px;
-    border-left-width: 5px;
+    border-left-width: 4px;
     border-left-style: solid;
     border-left-color: #EFEFEF;
+    border-radius: 2px;
     color: #A5A5A5;
+
+    &.front-matter > p {
+      white-space: pre;
+    }
 
     p {
       margin: 0;

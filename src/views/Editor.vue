@@ -13,6 +13,7 @@
 import { useStore } from "vuex"
 import { Options, Vue } from "vue-class-component"
 import { Prop, Watch } from "vue-property-decorator"
+import { useMessage } from "naive-ui"
 import MarkdownView from "@/components/MarkdownView/Index.vue"
 import MarkdownEditor from "@/components/MarkdownEditor/Index.vue"
 import { Mutations } from "@/store"
@@ -27,6 +28,7 @@ import fs from "fs"
 })
 export default class Editor extends Vue {
   private store = useStore()
+  private message = useMessage()
 
   @Prop(String)
   private filePath?: string
@@ -51,9 +53,11 @@ export default class Editor extends Vue {
 
   save () {
     if (this.filePath) {
-      fs.writeFile(this.filePath, this.content, "utf-8", (err: any) => {
+      fs.writeFile(this.filePath, this.content, "utf-8", (err: NodeJS.ErrnoException | null) => {
         if (err) {
-          console.log(err)
+          this.message.error(err.message)
+        } else {
+          this.message.success("保存成功")
         }
       })
     }

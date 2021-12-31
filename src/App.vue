@@ -1,19 +1,22 @@
 <template>
-  <n-config-provider abstract>
-    <div class="app">
-      <toolbar/>
-      <editor :file-path="filePath" style="flex: 1"
-              @dragenter="dragenter" @dragover="dragover" @dragleave="dragleave" @drop="drop"/>
-    </div>
+  <n-config-provider abstract :theme="naiveTheme">
+    <n-message-provider>
+      <div class="app">
+        <toolbar/>
+        <editor :file-path="filePath" style="flex: 1"
+                @dragenter="dragenter" @dragover="dragover" @dragleave="dragleave" @drop="drop"/>
+      </div>
+    </n-message-provider>
   </n-config-provider>
 </template>
 
 <script lang="ts">
 import { useStore } from "vuex"
 import { Options, Vue } from "vue-class-component"
-import { darkTheme, NConfigProvider } from "naive-ui"
+import { darkTheme, NConfigProvider, NMessageProvider, useOsTheme } from "naive-ui"
 import Editor from "@/views/Editor.vue"
 import Toolbar from "@/views/Toolbar.vue"
+import { Mutations } from "@/store"
 import fs from "fs"
 import path from "path"
 
@@ -26,6 +29,7 @@ declare global {
 @Options({
   components: {
     NConfigProvider,
+    NMessageProvider,
     Toolbar,
     Editor
   }
@@ -39,6 +43,13 @@ export default class Home extends Vue {
       return darkTheme
     } else {
       return null
+    }
+  }
+
+  created () {
+    const osTheme = useOsTheme().value
+    if (osTheme != null) {
+      this.store.commit(Mutations.SET_THEME, osTheme)
     }
   }
 

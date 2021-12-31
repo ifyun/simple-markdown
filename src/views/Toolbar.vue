@@ -1,7 +1,8 @@
 <template>
   <div class="toolbar" :class="theme">
     <n-space>
-      <n-switch :round="false" checked-value="dark" unchecked-value="light" @update:value="handleUpdate">
+      <n-switch :round="false" :rail-style="railStyle" v-model:value="theme"
+                checked-value="dark" unchecked-value="light">
         <template #checked>暗色</template>
         <template #unchecked>亮色</template>
       </n-switch>
@@ -25,12 +26,30 @@ import { Mutations } from "@/store"
 export default class Toolbar extends Vue {
   private store = useStore()
 
+  private railStyle = (info: { focused: boolean, checked: boolean }) => {
+    const style: any = {}
+
+    if (info.checked) {
+      style.background = "#2080F0"
+      if (info.focused) {
+        style.boxShadow = "0 0 0 2px #2080F040"
+      }
+    } else {
+      style.background = "#399F58"
+      if (info.focused) {
+        style.boxShadow = "0 0 0 2px #D0305040"
+      }
+    }
+
+    return style
+  }
+
   get theme () {
     return this.store.state.theme
   }
 
-  handleUpdate (theme: string) {
-    this.store.commit(Mutations.SET_THEME, theme)
+  set theme (value: string) {
+    this.store.commit(Mutations.SET_THEME, value)
   }
 }
 </script>
@@ -40,7 +59,6 @@ export default class Toolbar extends Vue {
   padding: 6px;
 
   &.light {
-    background-color: #FAFAFA;
     border-bottom: 1px solid #DDDDDD;
   }
 

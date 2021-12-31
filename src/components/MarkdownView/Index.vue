@@ -13,6 +13,8 @@ import "@/theme/markdown/default.scss"
 import "@/theme/markdown/dark.scss"
 
 const MarkdownIt = require("markdown-it")
+const MarkdownItContainer = require("markdown-it-container")
+
 const md = new MarkdownIt({
   html: true,
   highlight: (str: string, lang: string) => {
@@ -29,6 +31,16 @@ const md = new MarkdownIt({
 
 md.use(KatexPlugin)
 md.use(PicturePlugin)
+md.use(MarkdownItContainer, "", {
+  marker: "-",
+  render: (tokens: any, index: number) => {
+    if (tokens[index].nesting === 1) {
+      return `<blockquote class="front-matter">`
+    } else {
+      return `</blockquote>`
+    }
+  }
+})
 
 @Options({
   name: "MarkdownView"
