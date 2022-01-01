@@ -1,14 +1,15 @@
 <template>
   <div class="toolbar" :class="theme">
     <n-space align="center" justify="space-between">
-      <n-space>
+      <n-space align="center">
         <n-switch :round="false" :rail-style="railStyle" v-model:value="theme"
-                  checked-value="dark" unchecked-value="light">
+                  checked-value="dark" unchecked-value="light"
+                  style="margin-left: 4px; margin-top: -2px;">
           <template #checked>暗色</template>
           <template #unchecked>亮色</template>
         </n-switch>
       </n-space>
-      <n-space justify="end" size="small">
+      <n-space align="center" justify="end" size="small">
         <n-button quaternary size="small" @click="changeLayout(`source`)">
           <n-icon size="18" color="#C65352">
             <code-round/>
@@ -93,7 +94,7 @@ export default class Toolbar extends Vue {
 
 <style scoped lang="scss">
 .toolbar {
-  padding: 2px 4px;
+  padding: 2px;
 
   .n-button {
     padding: 0 5px;
@@ -101,7 +102,7 @@ export default class Toolbar extends Vue {
 
   &.light {
     background-color: #FEFEFE;
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #EEEEEE;
   }
 
   &.dark {

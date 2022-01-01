@@ -6,13 +6,25 @@ const {
   BrowserWindow
 } = require("electron")
 
-let mainWindow
+const electron = require("electron")
 
-function createWindow () {
+let mainWindow
+let webContents
+
+const handleRedirect = (e, url) => {
+  if (url !== webContents.getURL()) {
+    e.preventDefault()
+    require("electron").shell.openExternal(url).catch(err => {
+      console.log(err)
+    })
+  }
+}
+
+function createWindow (width, height) {
   mainWindow = new BrowserWindow({
+    width,
+    height,
     title: "Simple Markdown",
-    width: 1280,
-    height: 1024,
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
@@ -35,7 +47,21 @@ function createWindow () {
   })
 }
 
-app.on("ready", () => createWindow())
+app.on("ready", () => {
+  const screenHeight = electron.screen.getPrimaryDisplay().size.height
+
+  if (screenHeight <= 1080) {
+    createWindow(900, 720)
+  } else if (screenHeight <= 1440) {
+    createWindow(1280, 1024)
+  } else {
+    createWindow(1600, 1280)
+  }
+
+  webContents = mainWindow.webContents
+  webContents.on("will-navigate", handleRedirect)
+  webContents.on("new-window", handleRedirect)
+})
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

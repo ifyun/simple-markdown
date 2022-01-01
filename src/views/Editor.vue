@@ -113,7 +113,7 @@ export default class Editor extends Vue {
     }
 
     &.dark {
-      background-color: #101014;
+      background-color: #0E1117;
 
       ::-webkit-scrollbar-thumb {
         background-color: #404040;
