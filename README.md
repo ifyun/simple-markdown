@@ -1,4 +1,8 @@
-<h1 align="center">Simple Markdown</h1>
+<h1 align="center">
+<img src="./build/icon.ico" height="128">
+<br>
+Simple Markdown
+</h1>
 
 <p align="center">极简 Markdown 编辑器，基于 Electron & Vue。</p>
 

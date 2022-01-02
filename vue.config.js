@@ -19,11 +19,19 @@ module.exports = {
         to: path.resolve(__dirname, "dist/main.js"),
         toType: "file"
       })
+
       args[0].push({
         from: path.resolve(__dirname, "build/package.json"),
         to: path.resolve(__dirname, "dist/package.json"),
         toType: "file"
       })
+
+      args[0].push({
+        from: path.resolve(__dirname, "build/icon.ico"),
+        to: path.resolve(__dirname, "dist/icon.ico"),
+        toType: "file"
+      })
+
       return args
     })
     config.plugin("html").tap(args => {
