@@ -3,8 +3,8 @@
     <n-message-provider>
       <div class="app">
         <toolbar/>
-        <editor :file-path="filePath" style="flex: 1"
-                @dragenter="dragenter" @dragover="dragover" @dragleave="dragleave" @drop="drop"/>
+        <editor @dragenter="dragenter" @dragover="dragover" @dragleave="dragleave" @drop="drop"
+                style="flex: 1"/>
       </div>
     </n-message-provider>
   </n-config-provider>
@@ -20,12 +20,6 @@ import { Mutations } from "@/store"
 import fs from "fs"
 import path from "path"
 
-declare global {
-  interface Window {
-    currentDir: string
-  }
-}
-
 @Options({
   components: {
     NConfigProvider,
@@ -36,7 +30,6 @@ declare global {
 })
 export default class Home extends Vue {
   private store = useStore()
-  private filePath: string | null = null
 
   get naiveTheme () {
     if (this.store.state.theme === "dark") {
@@ -70,7 +63,7 @@ export default class Home extends Vue {
     const filePath = (e.dataTransfer!.files[0] as any).path
 
     if (this.isMarkdownFile(filePath)) {
-      this.filePath = filePath
+      this.store.commit(Mutations.SET_FILE_PATH, filePath)
       window.currentDir = path.dirname(filePath)
     }
   }

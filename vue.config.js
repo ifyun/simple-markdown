@@ -7,7 +7,7 @@ module.exports = {
       rules: [
         {
           test: /\.vue$/,
-          loader: require.resolve("./electron-loader")
+          loader: require.resolve("./build/electron-loader")
         }
       ]
     }

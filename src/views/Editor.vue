@@ -12,12 +12,14 @@
 <script lang="ts">
 import { useStore } from "vuex"
 import { Options, Vue } from "vue-class-component"
-import { Prop, Watch } from "vue-property-decorator"
+import { Watch } from "vue-property-decorator"
 import { useMessage } from "naive-ui"
 import MarkdownView from "@/components/MarkdownView/Index.vue"
 import MarkdownEditor from "@/components/MarkdownEditor/Index.vue"
 import { Mutations } from "@/store"
+import remote from "@electron/remote"
 import fs from "fs"
+import path from "path"
 
 @Options({
   name: "Editor",
@@ -30,10 +32,11 @@ export default class Editor extends Vue {
   private store = useStore()
   private message = useMessage()
 
-  @Prop(String)
-  private filePath?: string
-
   private content: string = ""
+
+  get filePath (): string | null {
+    return this.store.state.filePath
+  }
 
   get theme () {
     return this.store.state.theme
@@ -60,15 +63,36 @@ export default class Editor extends Vue {
   }
 
   save () {
-    if (this.filePath) {
-      fs.writeFile(this.filePath, this.content, "utf-8", (err: NodeJS.ErrnoException | null) => {
-        if (err) {
-          this.message.error(err.message)
-        } else {
-          this.message.success("保存成功")
+    if (this.filePath != null) {
+      this.writeToFile(this.filePath)
+    } else {
+      remote.dialog.showOpenDialog({
+        properties: ["openFile", "promptToCreate"],
+        filters: [
+          {
+            name: "Markdown File",
+            extensions: ["md"]
+          }
+        ]
+      }).then((val: Electron.OpenDialogReturnValue) => {
+        if (!val.canceled) {
+          const filePath = val.filePaths[0]
+          this.store.commit(Mutations.SET_FILE_PATH, filePath)
+          window.currentDir = path.dirname(filePath)
+          this.writeToFile(this.filePath!)
         }
       })
     }
+  }
+
+  writeToFile (filePath: string) {
+    fs.writeFile(filePath, this.content, "utf-8", (err: NodeJS.ErrnoException | null) => {
+      if (err != null) {
+        this.message.error(err.message)
+      } else {
+        this.message.success("保存成功")
+      }
+    })
   }
 }
 </script>

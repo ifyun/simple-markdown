@@ -1,12 +1,13 @@
 const path = require("path")
 const url = require("url")
-
+const electron = require("electron")
 const {
   app,
   BrowserWindow
 } = require("electron")
 
-const electron = require("electron")
+const remoteMain = require("@electron/remote/main")
+remoteMain.initialize()
 
 let mainWindow
 let webContents
@@ -28,7 +29,8 @@ function createWindow (width, height) {
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      devTools: false
     }
   })
 
@@ -61,6 +63,7 @@ app.on("ready", () => {
   webContents = mainWindow.webContents
   webContents.on("will-navigate", handleRedirect)
   webContents.on("new-window", handleRedirect)
+  remoteMain.enable(webContents)
 })
 
 app.on("window-all-closed", () => {
