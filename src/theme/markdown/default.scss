@@ -54,6 +54,20 @@
     }
   }
 
+  kbd {
+    padding: 2px 4px;
+    color: #424242;
+    background-color: #F5F5F5;
+    border-radius: 3px;
+    border: 1px solid #EEEEEE;
+    box-shadow: 1px 1px 1px #CCCCCC;
+    font-size: 0.8em;
+    font-weight: 400;
+    font-family: v-mono, SFMono-Regular, Menlo, Consolas, Courier, monospace;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
   ul, ol {
     padding-left: 25px;
   }
