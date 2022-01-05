@@ -1,10 +1,10 @@
 <template>
-  <div class="editor">
+  <div class="editor" :class="theme">
     <div v-show="showSource" class="source">
       <markdown-editor v-model="content" @save="save"/>
     </div>
-    <div v-show="showPreview" class="preview" :class="theme">
-      <markdown-view :content="content" style="flex: 1"/>
+    <div v-show="showPreview" class="preview">
+      <markdown-view :content="content"/>
     </div>
   </div>
 </template>
@@ -104,6 +104,7 @@ export default class Editor extends Vue {
   min-height: 0;
 
   .source {
+    width: 0;
     flex: 1;
     height: 100%;
   }
@@ -111,45 +112,45 @@ export default class Editor extends Vue {
   .preview {
     width: 0;
     flex: 1;
-    display: flex;
+    overflow: auto;
+  }
 
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+  }
+
+  &.light {
+    ::-webkit-scrollbar-thumb {
+      background-color: #E0E0E0;
+
+      &:hover {
+        background-color: #CCCCCC;
+      }
     }
+
+    ::-webkit-scrollbar-track {
+      background-color: #F5F5F5;
+    }
+  }
+
+  &.dark {
+    background-color: #0E1117;
 
     ::-webkit-scrollbar-thumb {
-      border-radius: 3px;
-    }
+      background-color: #404040;
 
-    &.light {
-      ::-webkit-scrollbar-thumb {
-        background-color: #E0E0E0;
-
-        &:hover {
-          background-color: #CCCCCC;
-        }
-      }
-
-      ::-webkit-scrollbar-track {
-        background-color: #F5F5F5;
+      &:hover {
+        background-color: #525252;
       }
     }
 
-    &.dark {
-      background-color: #0E1117;
-
-      ::-webkit-scrollbar-thumb {
-        background-color: #404040;
-
-        &:hover {
-          background-color: #525252;
-        }
-      }
-
-      ::-webkit-scrollbar-track {
-        background-color: #202020;
-      }
+    ::-webkit-scrollbar-track {
+      background-color: #202020;
     }
   }
 }

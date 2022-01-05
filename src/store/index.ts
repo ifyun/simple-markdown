@@ -4,7 +4,8 @@ const Mutations = {
   SET_LOAD_FLAG: "setLoadFlag",
   SET_FILE_PATH: "setFilePath",
   SET_THEME: "setTheme",
-  SET_LAYOUT: "setLayout"
+  SET_LAYOUT: "setLayout",
+  SET_LINE_WRAPPING: "setLineWrapping"
 }
 
 const store = createStore({
@@ -15,7 +16,8 @@ const store = createStore({
     filePath: null,
     /* 布局（source | split | preview） */
     layout: "split",
-    theme: "light"
+    theme: "light",
+    lineWrapping: false
   },
   mutations: {
     [Mutations.SET_LOAD_FLAG] (state: any, value: boolean) {
@@ -29,6 +31,9 @@ const store = createStore({
     },
     [Mutations.SET_THEME] (state: any, value: string) {
       state.theme = value
+    },
+    [Mutations.SET_LINE_WRAPPING] (state: any, value: boolean) {
+      state.lineWrapping = value
     }
   }
 })

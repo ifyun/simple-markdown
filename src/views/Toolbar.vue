@@ -8,6 +8,7 @@
           <template #checked>暗色</template>
           <template #unchecked>亮色</template>
         </n-switch>
+        <n-checkbox v-model:checked="lineWrapping">自动换行</n-checkbox>
       </n-space>
       <n-space align="center" justify="end" size="small">
         <n-button quaternary size="small" @click="changeLayout(`source`)">
@@ -33,7 +34,7 @@
 <script lang="ts">
 import { useStore } from "vuex"
 import { Options, Vue } from "vue-class-component"
-import { NButton, NIcon, NSpace, NSwitch } from "naive-ui"
+import { NButton, NCheckbox, NIcon, NSpace, NSwitch } from "naive-ui"
 import { CodeRound, VerticalSplitRound, WebAssetRound } from "@vicons/material"
 import { Mutations } from "@/store"
 
@@ -42,6 +43,7 @@ import { Mutations } from "@/store"
   components: {
     NSpace,
     NSwitch,
+    NCheckbox,
     NButton,
     NIcon,
     CodeRound,
@@ -76,6 +78,14 @@ export default class Toolbar extends Vue {
 
   set theme (value: string) {
     this.store.commit(Mutations.SET_THEME, value)
+  }
+
+  get lineWrapping (): boolean {
+    return this.store.state.lineWrapping
+  }
+
+  set lineWrapping (value: boolean) {
+    this.store.commit(Mutations.SET_LINE_WRAPPING, value)
   }
 
   get layout () {

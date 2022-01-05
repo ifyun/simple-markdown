@@ -63,9 +63,8 @@ export default class MarkdownView extends Vue {
 
 <style scoped lang="scss">
 .markdown-body {
-  padding: 24px;
-  max-width: 1080px;
-  overflow: auto;
+  padding: 32px;
+  max-width: 900px;
   margin: 0 auto;
 }
 </style>

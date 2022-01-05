@@ -36,7 +36,6 @@ import "codemirror/mode/php/php"
 import "codemirror/lib/codemirror.css"
 import "codemirror/theme/juejin.css"
 import "codemirror/theme/material-darker.css"
-import "vfonts/FiraCode.css"
 
 let self: any
 
@@ -54,7 +53,7 @@ export default class MarkdownEditor extends Vue {
     },
     dragDrop: false,
     lineNumbers: true,
-    lineWrapping: true,
+    lineWrapping: false,
     tabSize: 4,
     extraKeys: {
       "Ctrl-S": () => self.onSave()
@@ -63,6 +62,10 @@ export default class MarkdownEditor extends Vue {
 
   get theme () {
     return this.store.state.theme
+  }
+
+  get lineWrapping (): boolean {
+    return this.store.state.lineWrapping
   }
 
   get loadFile (): boolean {
@@ -98,6 +101,11 @@ export default class MarkdownEditor extends Vue {
     } else if (val === "dark") {
       cm?.setOption("theme", "material-darker")
     }
+  }
+
+  @Watch("lineWrapping")
+  lineWrappingChange (val: boolean) {
+    toRaw(this.cmEditor)?.setOption("lineWrapping", val)
   }
 
   mounted () {
@@ -158,6 +166,5 @@ export default class MarkdownEditor extends Vue {
 .CodeMirror {
   height: 100%;
   font-size: 14px;
-  font-family: v-mono, monospace;
 }
 </style>
